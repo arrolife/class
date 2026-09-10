@@ -405,7 +405,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u653B\u6483 \u6A21\u64EC\u6226 \u79FB\u52D5 \u56DE\u907F \u5F31"
+  m_text: "\u653B\u6483 \u6A21\u64EC\u6226 \u79FB\u52D5 \u56DE\u907F \u5F31 \u5F37
+    \u5FC5\u6BBA\u6280 \u6C7A\u5B9A\u4E0A\u4E0B\u6A2A\u53F3\u5DE6 \u6BB5\u6C7A\u5B9A\u9805\u76EE\u5168\u90E8\u81EA\u7531\u64CD\u4F5C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e05490e4a2fe9f643a4cbb799c92a201, type: 2}
   m_sharedMaterial: {fileID: 1736265676994888302, guid: e05490e4a2fe9f643a4cbb799c92a201, type: 2}
