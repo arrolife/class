@@ -396,6 +396,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor 6 x 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2597480072551671433, guid: f90620e707028484e81c14d1b45970fa,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e5fc0a4946ab1304ca504d672d2cbf86, type: 2}
     - target: {fileID: 6902299515039582823, guid: f90620e707028484e81c14d1b45970fa,
         type: 3}
       propertyPath: m_LocalPosition.x

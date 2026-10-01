@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Wall_Diningroom
+  m_Name: Wall_Bedroom
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 2100000, guid: 7c4df8c71c6e8ae42972629a610e20e6, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_Parent: {fileID: 2100000, guid: a0dc36c96fd9c544d88ef3f9510c4518, type: 2}
+  m_ModifiedSerializedProperties: 8
   m_ValidKeywords:
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
@@ -19,7 +19,7 @@ Material:
   - _METALLICGLOSSMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Opaque
@@ -30,31 +30,32 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 039d0ebbd0d67b24ab08bcf5d4c80fd3, type: 3}
+        m_Texture: {fileID: 2800000, guid: dfc4afa012e49ff46b46da3e6572b712, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 30d20fb44948f544cbba410e71b40c69, type: 3}
+        m_Texture: {fileID: 2800000, guid: bffa1362c76c6124fa3804d5176eef0d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 039d0ebbd0d67b24ab08bcf5d4c80fd3, type: 3}
+        m_Texture: {fileID: 2800000, guid: dfc4afa012e49ff46b46da3e6572b712, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 764b14171f2beee4ca1a52714b902fab, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1851897a7b3cb3b40b51ccea727ee4c6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 1b7d918996695fd4c9550fd74e3b26d0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4fb46e6004800a041b402ee8dba3a9b0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Cull: 0
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &7340142966125733671
+--- !u!114 &1102629333685197087
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
