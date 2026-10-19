@@ -203,8 +203,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 111.6
-  m_fontSizeBase: 111.6
+  m_fontSize: 93.05
+  m_fontSizeBase: 93.05
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -292,7 +292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0050659, y: -0.0025024}
+  m_AnchoredPosition: {x: -0.0050659, y: -148}
   m_SizeDelta: {x: 578.63, y: 122.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &203918796
@@ -341,7 +341,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 483618854}
         m_TargetAssemblyTypeName: csvReader, Assembly-CSharp
-        m_MethodName: OnButtonClick
+        m_MethodName: MainButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -521,7 +521,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6331ce0f93b0544b15a4168f4c7645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::csvReader
-  text: {fileID: 90572619}
+  MainText: {fileID: 0}
+  MainButton: {fileID: 0}
+  Choice1Button: {fileID: 0}
+  Choice2Button: {fileID: 0}
+  choice3Button: {fileID: 0}
+  Choice1Text: {fileID: 0}
+  Choice2Text: {fileID: 0}
+  Choice3Text: {fileID: 0}
 --- !u!4 &483618855
 Transform:
   m_ObjectHideFlags: 0
