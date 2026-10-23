@@ -1,0 +1,7 @@
+﻿id,pass,name,memo
+man_smile,Image/man_smile,男,普通の顔
+man_cry,Image/man_cry,男,泣いている顔
+man_angry,Image/man_angry,男,怒っている顔
+woman_smile,Image/woman_smile,女,普通の顔
+woman_cry,Image/woman_cry,女,泣いている顔
+woman_angry,Image/woman_angry,女,怒っている顔
