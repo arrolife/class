@@ -17,6 +17,8 @@ public class csvReader : MonoBehaviour
     public TMP_Text Choice3Text; //選択肢３テキスト
     public Image LeftImage; //左側に立つキャラ
     public Image RightImage; //右側に立つキャラ
+    public TMP_Text LeftName; //左側に立つキャラの名前
+    public TMP_Text RightName; //右側に立つキャラの名前
 
     
     private int LineNum = 1; //行番号
@@ -36,6 +38,7 @@ public class csvReader : MonoBehaviour
 
     //character
     private int PassColumn = 1; //passの列番号
+    private int NameColumn = 2; //nameの列番号
 
     private TextAsset MainCsvFile; //MainCSVファイル
     private List<string[]> MainCsvData = new List<string[]>(); //MainCSVファイルの中身を入れるリスト
@@ -74,7 +77,7 @@ public class csvReader : MonoBehaviour
         CharacterColumnSet();
 
         //テキストに入力
-        MainText.text = MainCsvData[LineNum][TextColumn] + "\nこのテキストのIDは" + MainCsvData[LineNum][IdColumn] + "です" ;
+        TextSet();
 
         //キャラクターimageをセット
         CharacterImageSet();
@@ -95,6 +98,11 @@ public class csvReader : MonoBehaviour
             if (CharacterCsvData[0][i] == "pass")
             {
                 PassColumn = i;
+            }
+
+            if (CharacterCsvData[0][i] == "name")
+            {
+                NameColumn = i;
             }
         }
             
@@ -157,6 +165,47 @@ public class csvReader : MonoBehaviour
         }
 
 
+
+    }
+
+    //テキストに入力
+    //MainTextのLineNumやTextColumnの値はこの関数外で指定したい
+    private void TextSet()
+    {
+
+        MainText.text = MainCsvData[LineNum][TextColumn] + "\nこのテキストのIDは" 
+            + MainCsvData[LineNum][IdColumn] + "です";
+
+        //Leftの名前をセット
+        //ifの条件がImageSetと同じだからそのうち一緒にまとめてもいいかも
+        if (MainCsvData[LineNum][LeftColumn] != "")
+        {
+            for (int i = 0; i < CharacterCsvData.Count; i++)
+            {
+
+                if (CharacterCsvData[i][IdColumn] == MainCsvData[LineNum][LeftColumn])
+                {
+
+                    LeftName.text = CharacterCsvData[i][NameColumn];
+
+                }
+            }
+        }
+
+        //Rightの名前をセット
+        if (MainCsvData[LineNum][RightColumn] != "")
+        {
+            for (int i = 0; i < CharacterCsvData.Count; i++)
+            {
+
+                if (CharacterCsvData[i][IdColumn] == MainCsvData[LineNum][RightColumn])
+                {
+
+                    RightName.text = CharacterCsvData[i][NameColumn];
+
+                }
+            }
+        }
 
     }
 
