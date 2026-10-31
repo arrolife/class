@@ -173,8 +173,11 @@ public class csvReader : MonoBehaviour
     private void TextSet()
     {
 
+
+
         MainText.text = MainCsvData[LineNum][TextColumn] + "\nこのテキストのIDは" 
             + MainCsvData[LineNum][IdColumn] + "です";
+
 
         //Leftの名前をセット
         //ifの条件がImageSetと同じだからそのうち一緒にまとめてもいいかも
