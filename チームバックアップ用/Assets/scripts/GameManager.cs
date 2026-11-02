@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 
-public class csvReader : MonoBehaviour
+public class gameManager : MonoBehaviour
 {
     public TMP_Text MainText; //メインテキスト
     public GameObject MainButton; //メインボタン
@@ -60,7 +60,7 @@ public class csvReader : MonoBehaviour
         ChoiceButtonHide();
 
         //maincsv
-        MainCsvFile = Resources.Load("ChoiceTemplate") as TextAsset; //ResourcesにあるCSVファイルを格納
+        MainCsvFile = Resources.Load("1-1") as TextAsset; //ResourcesにあるCSVファイルを格納
         StringReader mainreader = new StringReader(MainCsvFile.text); //TextAssetをStringReaderに変換
         while (mainreader.Peek() != -1)
         {
