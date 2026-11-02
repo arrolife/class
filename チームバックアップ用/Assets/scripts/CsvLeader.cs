@@ -20,31 +20,38 @@ public class csvReader : MonoBehaviour
     public TMP_Text LeftName; //左側に立つキャラの名前
     public TMP_Text RightName; //右側に立つキャラの名前
 
-    
-    private int LineNum = 1; //行番号
+
+
+    [SerializeField]
+    private float _delayDuration = 0.1f; // 次の文字を表示するまでの時間[s]
+    private Coroutine _showCoroutine; //二重実行を防ぐ
+
+
+    private int _lineNum = 1; //行番号
     // private int ColumnNum = 0; //列番号 //まだいらなさそう
 
     //main
-    private int IdColumn = 0; //idの列番号 //どのcsvもidを一番左に書くので全部これ使う
-    private int LeftColumn = 1; //leftの列番号
-    private int RightColumn = 2; //rightの列番号
-    private int TextColumn = 4; //textの列番号
-    private int Choice1Column = 5; //choice1の列番号
-    private int Choice2Column = 6; //choice2の列番号
-    private int Choice3Column = 7; //choice3の列番号
-    private int Jump1Column = 11; //jump1の列番号
-    private int Jump2Column = 12; //jump2の列番号
-    private int Jump3Column = 13; //jump3の列番号
+    private int _idColumn = 0; //idの列番号 //どのcsvもidを一番左に書くので全部これ使う
+    private int _leftColumn = 1; //leftの列番号
+    private int _rightColumn = 2; //rightの列番号
+    private int _textColumn = 4; //textの列番号
+    private int _choice1Column = 5; //choice1の列番号
+    private int _choice2Column = 6; //choice2の列番号
+    private int _choice3Column = 7; //choice3の列番号
+    private int _jump1Column = 11; //jump1の列番号
+    private int _jump2Column = 12; //jump2の列番号
+    private int _jump3Column = 13; //jump3の列番号
 
     //character
-    private int PassColumn = 1; //passの列番号
-    private int NameColumn = 2; //nameの列番号
+    private int _passColumn = 1; //passの列番号
+    private int _nameColumn = 2; //nameの列番号
 
     private TextAsset MainCsvFile; //MainCSVファイル
     private List<string[]> MainCsvData = new List<string[]>(); //MainCSVファイルの中身を入れるリスト
 
     private TextAsset CharacterCsvFile; //CharacterCSVファイル
     private List<string[]> CharacterCsvData = new List<string[]>(); //MainCSVファイルの中身を入れるリスト
+
 
     void Start()
     {
@@ -81,36 +88,27 @@ public class csvReader : MonoBehaviour
 
         //キャラクターimageをセット
         CharacterImageSet();
-
-
-
-   
     }
+
 
     //character内の各columnの位置を探す
     private void CharacterColumnSet()
     {
-
         //""の中身が正しいか必ず確認
         for (int i = 0; i < CharacterCsvData[0].Length; i++)
         {
 
             if (CharacterCsvData[0][i] == "pass")
             {
-                PassColumn = i;
+                _passColumn = i;
             }
 
             if (CharacterCsvData[0][i] == "name")
             {
-                NameColumn = i;
+                _nameColumn = i;
             }
         }
-            
-
-
-
     }
-
 
 
     //maincsv内の各columnの位置を探す
@@ -123,165 +121,166 @@ public class csvReader : MonoBehaviour
 
             if (MainCsvData[0][i] == "id")
             {
-                IdColumn = i;
+                _idColumn = i;
             }
             else if (MainCsvData[0][i] == "left")
             {
-                LeftColumn = i;
+                _leftColumn = i;
             }
             else if (MainCsvData[0][i] == "right")
             {
-                RightColumn = i;
+                _rightColumn = i;
             }
             else if (MainCsvData[0][i] == "text")
             {
-                TextColumn = i;
+                _textColumn = i;
             }
             else if (MainCsvData[0][i] == "choice1")
             {
-                Choice1Column = i;
+                _choice1Column = i;
             }
             else if (MainCsvData[0][i] == "choice2")
             {
-                Choice2Column = i;
+                _choice2Column = i;
             }
             else if (MainCsvData[0][i] == "choice3")
             {
-                Choice3Column = i;
+                _choice3Column = i;
             }
             else if (MainCsvData[0][i] == "jump1")
             {
-                Jump1Column = i;
+                _jump1Column = i;
             }
             else if (MainCsvData[0][i] == "jump2")
             {
-                Jump2Column = i;
+                _jump2Column = i;
             }
             else if (MainCsvData[0][i] == "jump3")
             {
-                Jump3Column = i;
+                _jump3Column = i;
             }
-
         }
-
-
-
     }
 
-    //テキストに入力
-    //MainTextのLineNumやTextColumnの値はこの関数外で指定したい
-    private void TextSet()
+
+    //次の会話に進む処理
+    public void MainButtonClick()
     {
 
+        if (_showCoroutine == null)
+        {
+            if (MainCsvData[_lineNum][_jump1Column] == "") //jump1にidが入力してあるか
+            {
+                _lineNum++; //ない場合は次の行に進む
+            }
+            else
+            {
+                for (int i = 0; i < MainCsvData.Count; i++) //csvDataリストの条件を満たす値の数（全て)
+                {
+
+                    if (MainCsvData[i][_idColumn] == MainCsvData[_lineNum][_jump1Column])
+                    {
+                        _lineNum = i;
+                        break;
+                    }
+
+                }
+            }
+
+            //選択肢がその会話にあるかチェック
+            //ChoiceCheck();
+            TextSet();
+            CharacterImageSet();
+        }
+        else //現在の会話のスキップ処理
+        {
+            StopCoroutine(_showCoroutine);
+            _showCoroutine = null;
+            MainText.maxVisibleCharacters = int.MaxValue;
+            ChoiceCheck();
+        }
+    }
 
 
-        MainText.text = MainCsvData[LineNum][TextColumn] + "\nこのテキストのIDは" 
-            + MainCsvData[LineNum][IdColumn] + "です";
+    //選択肢がその会話にあるかチェック
+    private void ChoiceCheck()
+    {
+        if (MainCsvData[_lineNum][_choice1Column] != "") //次の行の選択肢の有無を確認
+        {
+            //選択肢があった場合
+            MainButton.SetActive(false);
+            Choice1Button.SetActive(true);
+            Choice1Text.text = MainCsvData[_lineNum][_choice1Column];
 
+        }
+        if (MainCsvData[_lineNum][_choice2Column] != "")
+        {
+            Choice2Button.SetActive(true);
+            Choice2Text.text = MainCsvData[_lineNum][_choice2Column];
+
+        }
+        if (MainCsvData[_lineNum][_choice3Column] != "")
+        {
+            Choice3Button.SetActive(true);
+            Choice3Text.text = MainCsvData[_lineNum][_choice3Column];
+
+        }
+    }
+
+
+    //テキストに表示
+    //この処理にはShow()を含む
+    //MainTextの_lineNumや_textColumnの値はこの関数外で指定したい
+    private void TextSet()
+    {
+        //Show()の前に文字送りさせたい文章を指定
+        //そのうちこの処理をShow()の中に入れる可能性あり
+        MainText.text = MainCsvData[_lineNum][_textColumn];
+        //メインテキストの文字送り
+        Show();
 
         //Leftの名前をセット
         //ifの条件がImageSetと同じだからそのうち一緒にまとめてもいいかも
-        if (MainCsvData[LineNum][LeftColumn] != "")
+        if (MainCsvData[_lineNum][_leftColumn] != "")
         {
             for (int i = 0; i < CharacterCsvData.Count; i++)
             {
 
-                if (CharacterCsvData[i][IdColumn] == MainCsvData[LineNum][LeftColumn])
+                if (CharacterCsvData[i][_idColumn] == MainCsvData[_lineNum][_leftColumn])
                 {
-
-                    LeftName.text = CharacterCsvData[i][NameColumn];
-
+                    LeftName.text = CharacterCsvData[i][_nameColumn];
                 }
             }
         }
 
         //Rightの名前をセット
-        if (MainCsvData[LineNum][RightColumn] != "")
+        if (MainCsvData[_lineNum][_rightColumn] != "")
         {
             for (int i = 0; i < CharacterCsvData.Count; i++)
             {
-
-                if (CharacterCsvData[i][IdColumn] == MainCsvData[LineNum][RightColumn])
+                if (CharacterCsvData[i][_idColumn] == MainCsvData[_lineNum][_rightColumn])
                 {
-
-                    RightName.text = CharacterCsvData[i][NameColumn];
-
+                    RightName.text = CharacterCsvData[i][_nameColumn];
                 }
             }
         }
-
-    }
-
-
-    public void MainButtonClick() //次の会話に進む処理
-    {
-
-        if (MainCsvData[LineNum][Jump1Column] == "") //jump1にidが入力してあるか
-        {
-            LineNum++; //ない場合は次の行に進む
-        }
-        else
-        {
-            for (int i = 0; i < MainCsvData.Count; i++) //csvDataリストの条件を満たす値の数（全て)
-            {
-
-                if (MainCsvData[i][IdColumn] == MainCsvData[LineNum][Jump1Column])
-                {
-
-                    LineNum = i;
-                    break;
-                }
-
-            }
-        }
-
-        CharacterImageSet();
-
-        //選択肢がある会話について
-        if (MainCsvData[LineNum][Choice1Column] != "") //次の行の選択肢の有無を確認
-        {
-            //選択肢があった場合
-            MainButton.SetActive(false);
-            Choice1Button.SetActive(true);
-            Choice1Text.text = MainCsvData[LineNum][Choice1Column];
-
-        }
-        if (MainCsvData[LineNum][Choice2Column] != "")
-        {
-
-            Choice2Button.SetActive(true);
-            Choice2Text.text = MainCsvData[LineNum][Choice2Column];
-
-        }
-        if (MainCsvData[LineNum][Choice3Column] != "")
-        {
-
-            Choice3Button.SetActive(true);
-            Choice3Text.text = MainCsvData[LineNum][Choice3Column];
-
-        }
-        
-        MainText.text = MainCsvData[LineNum][TextColumn] + "\nこのテキストのIDは" + MainCsvData[LineNum] [IdColumn] + "です";
-        
     }
 
 
     //それぞれの選択に応じた処理を行う
-
     public void Choice1Click()
     {
-
         ChoiceButtonHide();
 
         //ジャンプ先のIDを検索してそこの会話に飛ぶ
         for (int i = 0; i < MainCsvData.Count; i++) //csvDataリストの条件を満たす値の数（全て)
         {
 
-            if (MainCsvData[i][IdColumn] == MainCsvData[LineNum][Jump1Column])
+            if (MainCsvData[i][_idColumn] == MainCsvData[_lineNum][_jump1Column])
             {
                 
-                LineNum = i;
-                MainText.text = MainCsvData[LineNum][TextColumn] + "\nこのテキストのIDは" + MainCsvData[LineNum][IdColumn] + "です";
+                _lineNum = i;
+                TextSet();
                 break;
             }
             
@@ -294,17 +293,16 @@ public class csvReader : MonoBehaviour
 
     public void Choice2Click()
     {
-
         ChoiceButtonHide();
 
         for (int i = 0; i < MainCsvData.Count; i++) //csvDataリストの条件を満たす値の数（全て)
         {
 
-            if (MainCsvData[i][IdColumn] == MainCsvData[LineNum][Jump2Column])
+            if (MainCsvData[i][_idColumn] == MainCsvData[_lineNum][_jump2Column])
             {
 
-                LineNum = i;
-                MainText.text = MainCsvData[LineNum][TextColumn] + "\nこのテキストのIDは" + MainCsvData[LineNum][IdColumn] + "です";
+                _lineNum = i;
+                TextSet();
                 break;
             }
 
@@ -316,17 +314,16 @@ public class csvReader : MonoBehaviour
 
     public void Choice3Click()
     {
-
         ChoiceButtonHide();
 
         for (int i = 0; i < MainCsvData.Count; i++) //csvDataリストの条件を満たす値の数（全て)
         {
 
-            if (MainCsvData[i][IdColumn] == MainCsvData[LineNum][Jump3Column])
+            if (MainCsvData[i][_idColumn] == MainCsvData[_lineNum][_jump3Column])
             {
 
-                LineNum = i;
-                MainText.text = MainCsvData[LineNum][TextColumn] + "\nこのテキストのIDは" + MainCsvData[LineNum][IdColumn] + "です";
+                _lineNum = i;
+                TextSet();
                 break;
             }
 
@@ -336,9 +333,9 @@ public class csvReader : MonoBehaviour
         MainButton.SetActive(true);
     }
 
+    //選択肢ボタンを隠す
     private void ChoiceButtonHide()
     {
-
         Choice1Button.SetActive(false);
         Choice2Button.SetActive(false);
         Choice3Button.SetActive(false);
@@ -347,39 +344,77 @@ public class csvReader : MonoBehaviour
     //キャラクターのimageをセットする
     private void CharacterImageSet()
     {
-
         //Leftの確認
-        if (MainCsvData[LineNum][LeftColumn] != "")
+        if (MainCsvData[_lineNum][_leftColumn] != "")
         {
             for (int i = 0; i < CharacterCsvData.Count; i++)
             {
 
-                if (CharacterCsvData[i][IdColumn] == MainCsvData[LineNum][LeftColumn])
+                if (CharacterCsvData[i][_idColumn] == MainCsvData[_lineNum][_leftColumn])
                 {
 
-                    LeftImage.sprite = Resources.Load<Sprite>(CharacterCsvData[i][PassColumn]);
+                    LeftImage.sprite = Resources.Load<Sprite>(CharacterCsvData[i][_passColumn]);
 
                 }
             }
         }
 
         //Rightの確認
-        if (MainCsvData[LineNum][RightColumn] != "")
+        if (MainCsvData[_lineNum][_rightColumn] != "")
         {
             for (int i = 0; i < CharacterCsvData.Count; i++)
             {
 
-                if (CharacterCsvData[i][IdColumn] == MainCsvData[LineNum][RightColumn])
+                if (CharacterCsvData[i][_idColumn] == MainCsvData[_lineNum][_rightColumn])
                 {
 
-                    RightImage.sprite = Resources.Load<Sprite>(CharacterCsvData[i][PassColumn]);
+                    RightImage.sprite = Resources.Load<Sprite>(CharacterCsvData[i][_passColumn]);
 
                 }
             }
         }
+    }
 
-        
+    //呼び出すときはこっち
+    private void Show() //一旦privateにしとく
+    {
+        // 前回の演出処理が走っていたら、停止
+        if (_showCoroutine != null)
+        {
+            StopCoroutine(_showCoroutine);
+        }
+            
+        // １文字ずつ表示する演出のコルーチンを実行する
+        _showCoroutine = StartCoroutine(ShowCoroutine());
 
+    }
+
+    // １文字ずつ表示する演出のコルーチン
+    private IEnumerator ShowCoroutine()
+    {
+        // 待機用コルーチン
+        // GC Allocを最小化するためキャッシュしておく
+        var delay = new WaitForSeconds(_delayDuration);
+
+        // テキスト全体の長さ
+        var length = MainText.text.Length;
+
+        // １文字ずつ表示する演出
+        for (var i = 0; i < length; i++)
+        {
+            // 徐々に表示文字数を増やしていく
+            MainText.maxVisibleCharacters = i;
+
+            // 一定時間待機
+            yield return delay;
+        }
+
+        // 演出が終わったら全ての文字を表示する
+        MainText.maxVisibleCharacters = length;
+
+        _showCoroutine = null;
+
+        ChoiceCheck();
 
     }
 
