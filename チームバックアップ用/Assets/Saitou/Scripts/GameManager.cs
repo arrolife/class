@@ -114,9 +114,10 @@ public class gameManager : MonoBehaviour
     //maincsv内の各columnの位置を探す
     private void MainColumnNumSet()
     {
-        
+
         //""の中身が正しいか必ず確認
-        for (int i = 0; i < MainCsvData[0].Length; i++){
+        for (int i = 0; i < MainCsvData[0].Length; i++)
+        {
 
 
             if (MainCsvData[0][i] == "id")
@@ -278,12 +279,12 @@ public class gameManager : MonoBehaviour
 
             if (MainCsvData[i][_idColumn] == MainCsvData[_lineNum][_jump1Column])
             {
-                
+
                 _lineNum = i;
                 TextSet();
                 break;
             }
-            
+
         }
 
         CharacterImageSet();
@@ -383,7 +384,7 @@ public class gameManager : MonoBehaviour
         {
             StopCoroutine(_showCoroutine);
         }
-            
+
         // １文字ずつ表示する演出のコルーチンを実行する
         _showCoroutine = StartCoroutine(ShowCoroutine());
 

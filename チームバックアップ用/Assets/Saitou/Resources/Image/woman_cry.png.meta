@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8612abf909105224cb4130259c9ab5db
+guid: 5081feb1d3c1cf64c8d8ef47079802f3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9096482977812982495
-    second: man_smile_0
+      213: 7554619992814229895
+    second: woman_cry_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: man_smile_0
+      name: woman_cry_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 3
+        x: 19
+        y: 4
         width: 111
-        height: 194
+        height: 193
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fda2ee5b2133d3e70800000000000000
-      internalID: 9096482977812982495
+      spriteID: 78991cc7bd667d860800000000000000
+      internalID: 7554619992814229895
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      man_smile_0: 9096482977812982495
+      woman_cry_0: 7554619992814229895
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

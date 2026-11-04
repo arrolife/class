@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 28cd60a5e9c15824da5107530f6a49f5
+guid: b68f4346b70a2644db23d51e386ee14c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3990605250145363392
-    second: woman_smile_0
+      213: -2088403750113456894
+    second: woman_angry_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,12 +126,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: woman_smile_0
+      name: woman_angry_0
       rect:
         serializedVersion: 2
-        x: 19
+        x: 20
         y: 4
-        width: 111
+        width: 110
         height: 193
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0c529b5f45a716730800000000000000
-      internalID: 3990605250145363392
+      spriteID: 20dc4e6aadf7403e0800000000000000
+      internalID: -2088403750113456894
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      woman_smile_0: 3990605250145363392
+      woman_angry_0: -2088403750113456894
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
